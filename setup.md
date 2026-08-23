@@ -17,7 +17,7 @@ Generate ssh keys <br>
 ```ssh-keygen -t rsa```
 
 Connect via <br>
-```ssh -i ssh-server husted42.dk@ssh.simply.com```
+```ssh -i ssh-server root@91.210.59.86```
 
 ### Github
 Create public key <br>
