@@ -1,2 +1,3 @@
 ### Build docker contatiner
-docker compose up --build
+Need root to access docker.scok <br>
+```sudo docker compose up --build```

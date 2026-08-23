@@ -1,50 +1,106 @@
-**LINUX-VERSION :** Ubuntu 24.04.3 LTS
-**LINUX-KERNAL :** Linux kernel 6.8.0-79-generic
+````markdown
+# Server Setup
 
-### Init
-Update: <br>
-```apt update && apt upgrade -y```
+**Linux version:** Ubuntu 24.04.3 LTS  
+**Kernel:** 6.8.0-79-generic  
 
-Add user <br>
-```adduser husted``` <br>
-```usermod -aG sudo husted```
+## Initial Setup
 
+Update packages:
 
-### SSH
-I prefer to connect and develop via Ubuntu, so for my windows PC I use WSL. 
+```bash
+apt update && apt upgrade -y
+````
 
-Generate ssh keys <br>
-```ssh-keygen -t rsa```
+Create a user:
 
-Connect via <br>
-```ssh -i ssh-server root@91.210.59.86```
+```bash
+adduser husted
+```
 
-### Github
-Create public key <br>
-```ssh-keygen -t ed25519 -C "Husted42 GitHub```
+Give the user sudo access:
 
-This key get's saved to /root/.ssh/id_ed25519, and can be viewed with ```cat ~/.ssh/id_ed25519.pub``` 
+```bash
+usermod -aG sudo husted
+```
 
-We can test the conneciton with: <br>
-```ssh -T git@github.com```
+## SSH
 
-Then it can be cloned with: <br>
-```git clone git@github.com:Husted42/webserver-linux.git```
+Generate an SSH key:
 
+```bash
+ssh-keygen -t rsa
+```
 
-## Docker install
-# Update package lists
-sudo apt-get update
+Connect to the server:
 
-# Install Docker
-sudo apt-get install -y docker.io
+```bash
+ssh -i ssh-server root@91.210.59.86
+```
 
-# Add your user to docker group (avoid sudo each time)
+## GitHub
+
+Generate a GitHub SSH key:
+
+```bash
+ssh-keygen -t ed25519 -C "Husted42 GitHub"
+```
+
+View the public key:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Test the GitHub connection:
+
+```bash
+ssh -T git@github.com
+```
+
+Clone the repository:
+
+```bash
+git clone git@github.com:Husted42/webserver-linux.git
+```
+
+## Docker
+
+Update packages:
+
+```bash
+sudo apt update
+```
+
+Install Docker:
+
+```bash
+sudo apt install -y docker.io
+```
+
+Add your user to the Docker group:
+
+```bash
 sudo usermod -aG docker $USER
+```
 
-# Restart WSL or run:
-sudo apt install util-linux-extra
+Apply the new group:
+
+```bash
 newgrp docker
+```
 
-# Verify
+Verify Docker:
+
+```bash
 docker --version
+```
+
+Verify Docker Compose:
+
+```bash
+docker compose version
+```
+
+```
+```

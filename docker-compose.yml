@@ -1,13 +1,21 @@
 services:
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: webserver-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: portfolio-backend
+    container_name: webserver-backend
     ports:
       - "8000:8000"
 
-
-# volumes:
-#   postgres_data:
