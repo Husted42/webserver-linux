@@ -23,7 +23,7 @@ Connect via <br>
 Create public key <br>
 ```ssh-keygen -t ed25519 -C "Husted42 GitHub```
 
-This key get's saved to /var/www/husted42.dk/.ssh/id_ed25519.pub, and can be viewed with ```cat ~/.ssh/id_ed25519.pub``` 
+This key get's saved to [TODO], and can be viewed with ```cat ~/.ssh/id_ed25519.pub``` 
 
 We can test the conneciton with: <br>
 ```ssh -T git@github.com```
