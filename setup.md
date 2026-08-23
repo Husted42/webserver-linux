@@ -30,3 +30,21 @@ We can test the conneciton with: <br>
 
 Then it can be cloned with: <br>
 ```git clone git@github.com:Husted42/webserver-linux.git```
+
+
+## Docker install
+# Update package lists
+sudo apt-get update
+
+# Install Docker
+sudo apt-get install -y docker.io
+
+# Add your user to docker group (avoid sudo each time)
+sudo usermod -aG docker $USER
+
+# Restart WSL or run:
+sudo apt install util-linux-extra
+newgrp docker
+
+# Verify
+docker --version
