@@ -1,4 +1,13 @@
-**LINUX-VERSION :** CloudLinux 8 (EL8-based), kernel 4.18.0, x86_6
+**LINUX-VERSION :** Ubuntu 24.04.3 LTS
+**LINUX-KERNAL :** Linux kernel 6.8.0-79-generic
+
+### Init
+Update: <br>
+```apt update && apt upgrade -y```
+
+Add user <br>
+```adduser husted``` <br>
+```usermod -aG sudo husted```
 
 
 ### SSH
