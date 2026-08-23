@@ -1,12 +1,12 @@
 services:
 
-#   backend:
-#     build:
-#       context: ./backend
-#       dockerfile: Dockerfile
-#     container_name: portfolio-backend
-#     ports:
-#       - "8000:8000"
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: portfolio-backend
+    ports:
+      - "8000:8000"
 
 
 # volumes:
