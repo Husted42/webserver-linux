@@ -14,8 +14,8 @@ export default function RootLayout({
             <Image
               src="/beerlist/logo.png"
               alt="Husted logo"
-              width={250}
-              height={250}
+              width={170} /* set in .css */ 
+              height={48}
             />
           </a>
 
