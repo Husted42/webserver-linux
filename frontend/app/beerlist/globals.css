@@ -1,14 +1,14 @@
 :root {
-  --red: #df301c;
-  --orange: #ff9100;
-  --cream: #fff1d1;
-  --cyan: #00b7cd;
+  --orange: #ff9500;
+  --orange-dark: #cc7600;
 
-  --background: #fffaf0;
-  --surface: #ffffff;
-  --text: #201e1c;
-  --muted: #716b64;
-  --border: rgba(32, 30, 28, 0.1);
+  --background: #424141;
+  --surface: #363636;
+
+  --text: #f7f7f7;
+  --muted: #b8b8b8;
+
+  --border: rgba(255, 255, 255, 0.09);
 }
 
 * {
@@ -67,7 +67,7 @@ button {
 .panel-kicker {
   margin: 0;
 
-  color: var(--red);
+  color: var(--orange);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -97,7 +97,7 @@ button {
 .primary-button {
   padding: 14px 22px;
 
-  background: var(--red);
+  background: var(--orange);
   color: white;
 
   border-radius: 999px;
@@ -114,7 +114,7 @@ button {
 .secondary-button {
   padding: 10px 16px;
 
-  background: var(--cream);
+  background: var(--orange);
   color: var(--text);
 
   border-radius: 999px;
@@ -148,7 +148,7 @@ button {
 }
 
 .stat-card:nth-child(1) {
-  border-top: 5px solid var(--red);
+  border-top: 5px solid var(--orange);
 }
 
 .stat-card:nth-child(2) {
@@ -156,7 +156,7 @@ button {
 }
 
 .stat-card:nth-child(3) {
-  border-top: 5px solid var(--cyan);
+  border-top: 5px solid var(--orange);
 }
 
 .stat-value {
@@ -245,14 +245,14 @@ button {
   flex-direction: column;
   justify-content: flex-end;
 
-  background: var(--cyan);
-  color: #062f34;
+  background: var(--orange-dark);
+  color: var(--text); 
 
   border: none;
 }
 
 .highlight-panel .panel-kicker {
-  color: #062f34;
+  color: var(--text);
 }
 
 .highlight-panel h2 {
@@ -302,7 +302,7 @@ button {
 }
 
 .logo {
-  color: var(--red);
+  color: var(--orange);
 
   font-size: 1.2rem;
   font-weight: 900;
@@ -325,5 +325,5 @@ button {
 }
 
 .nav-links a:hover {
-  color: var(--red);
+  color: var(--orange);
 }

@@ -1,6 +1,5 @@
-// app/layout.tsx
-
 import "./globals.css";
+import Image from "next/image";
 
 export default function RootLayout({
   children,
@@ -12,7 +11,12 @@ export default function RootLayout({
       <body>
         <nav className="navbar">
           <a href="/" className="logo">
-            HUSTED
+            <Image
+              src="/beerlist/logo.png"
+              alt="Husted logo"
+              width={250}
+              height={250}
+            />
           </a>
 
           <div className="nav-links">
