@@ -1,0 +1,1 @@
+print("Hello from sync_google_sheets.py!")

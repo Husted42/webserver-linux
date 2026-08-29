@@ -7,3 +7,10 @@ Need root to access docker.scok <br>
 However to get live update when developing we can just use <br>
 ```npm run dev``` <br>
 Otherwise we need to build the contatiner each time.
+
+# Docker commands
+List contatiners <br>
+```docker compose ps``
+
+View logs <br>
+```docker comose logs {{SERVICE}}```

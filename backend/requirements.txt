@@ -1,3 +1,13 @@
 fastapi
-uvicorn[standard]
+uvicorn
+
+APScheduler
+
 psycopg[binary]
+pandas
+
+gspread
+google-api-python-client
+google-auth
+google-auth-httplib2
+google-auth-oauthlib
