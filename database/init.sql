@@ -13,5 +13,15 @@ CREATE TABLE IF NOT EXISTS beers (
     name TEXT NOT NULL,
     brewer_id INTEGER REFERENCES brewers(id),
     abv NUMERIC(4,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    rating INTEGER CHECK (rating >= 1 AND rating <= 5)
+);
+
+CREATE TABLE IF NOT EXISTS raw_beerlist_google_data (
+    brewery TEXT,
+    name TEXT,
+    type TEXT,
+    alcohol TEXT,
+    country TEXT,
+    rating TEXT
 );

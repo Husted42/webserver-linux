@@ -14,3 +14,6 @@ List contatiners <br>
 
 View logs <br>
 ```docker comose logs {{SERVICE}}```
+
+Accsess the postgresql database<br>
+````docker exec -it webserver-postgres psql -U postgres -d {{database_name}}````

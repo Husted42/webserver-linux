@@ -1,3 +1,4 @@
+#################### ------------------------------ Imports ------------------------------ ####################
 import json
 import os
 
@@ -6,6 +7,9 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
+import psycopg
+
+#################### ------------------------------ Variables ------------------------------ ####################
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 TOKEN_FILE = os.path.join(os.path.dirname(__file__), "../../credentials/token.json")
 GOOGLE_CREDENTIALS_JSON = os.path.join(
@@ -13,7 +17,7 @@ GOOGLE_CREDENTIALS_JSON = os.path.join(
     "../../credentials/google_credentials.json",
 )
 
-
+#################### ------------------------------ Retrieve Google Sheets Data ------------------------------ ####################
 def get_google_credentials():
     creds = None
 
@@ -57,7 +61,7 @@ def read_sheet():
     print("Google Sheets API client created.")
 
     spreadsheet_id = "11vltnGMEm4kEGVtt7yZPh3Vic5_fZivZTqeHtTvmUjw"
-    range_name = "Data!A1:D100"
+    range_name = "Data!A1:F100"
 
     try:
         result = (
@@ -81,10 +85,48 @@ def read_sheet():
         print("No rows were found in the sheet range.")
         return []
 
-    for row in rows:
-        print(row)
+    return rows[1:]  # Skip the header row
 
-    return rows
+#################### ------------------------------ SQL Upload ------------------------------ ####################
+
+def get_db_connection():
+    in_docker = os.path.exists("/.dockerenv")
+
+    host = os.getenv("DB_HOST", "postgres" if in_docker else "localhost")
+    port = int(os.getenv("DB_PORT", "5432"))
+    dbname = os.getenv("POSTGRES_DB", "beerdb")
+    user = os.getenv("POSTGRES_USER", "postgres")
+    password = os.getenv("POSTGRES_PASSWORD", "password")
+
+    return psycopg.connect(
+        host=host,
+        port=port,
+        dbname=dbname,
+        user=user,
+        password=password,
+    )
+
+
+def upload_to_database(rows, connection):
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM raw_beerlist_google_data;")
+
+    for batch in [rows[i:i + 100] for i in range(0, len(rows), 100)]:
+        cursor.executemany(
+            "INSERT INTO raw_beerlist_google_data (brewery, name, type, alcohol, country, rating) VALUES (%s, %s, %s, %s, %s, %s);",
+            batch,
+        )
+        connection.commit()
+    
+
+
+
+def main():
+    rows = read_sheet()
+
+    connection = get_db_connection()
+
+    upload_to_database(rows, connection)
 
 if __name__ == "__main__":
-    read_sheet()
+    main()
