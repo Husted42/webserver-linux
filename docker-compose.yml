@@ -10,7 +10,6 @@ services:
     depends_on:
       - backend
 
-
   backend:
     build:
       context: ./backend
@@ -18,4 +17,49 @@ services:
     container_name: webserver-backend
     ports:
       - "8000:8000"
+    depends_on:
+      - postgres
 
+  cron:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: webserver-cron
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      DB_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["python", "cron/run_jobs.py"]
+      
+  postgres:
+    image: postgres:17
+    container_name: webserver-postgres
+
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    ports:
+        - "5432:5432"
+
+
+    
+    
+
+volumes:
+  postgres_data:
