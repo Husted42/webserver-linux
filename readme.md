@@ -25,10 +25,9 @@ Before starting the project, make sure you have:
 
 1. Create the environment file and push env (see env)
 
-    - Stand in root older
+    - Stand in root folder
     
     ```export $(grep -v '^#' .env | xargs)```
-    ```cd backend```
 
 2. Build and start the application:
 
