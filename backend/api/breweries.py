@@ -8,32 +8,48 @@ router = APIRouter(prefix="/api/breweries", tags=["breweries"])
 
 
 @router.get("/countries")
-def list_countries():
+def list_countries(
+    brewery: str | None = Query(default=None),
+    type: str | None = Query(default=None),
+):
     query = """
-        SELECT DISTINCT country
-        FROM beerlist.mart__brewery
-        WHERE country IS NOT NULL
-        ORDER BY country
+        SELECT DISTINCT brewery.country
+        FROM beerlist.mart__brewery AS brewery
+        INNER JOIN beerlist.mart__beers AS beer
+            ON beer.brewery_key = brewery.brewery_key
+        WHERE brewery.country IS NOT NULL
+            AND (%(brewery)s::text IS NULL OR brewery.brewery = %(brewery)s::text)
+            AND (%(type)s::text IS NULL OR beer.type = %(type)s::text)
+        ORDER BY brewery.country
     """
+    params = {"brewery": brewery, "type": type}
 
     with get_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute(query)
+            cursor.execute(query, params)
             return [row["country"] for row in cursor.fetchall()]
 
 
 @router.get("/names")
-def list_brewery_names():
+def list_brewery_names(
+    country: str | None = Query(default=None),
+    type: str | None = Query(default=None),
+):
     query = """
-        SELECT DISTINCT brewery
-        FROM beerlist.mart__brewery
-        WHERE brewery IS NOT NULL
-        ORDER BY brewery
+        SELECT DISTINCT brewery.brewery
+        FROM beerlist.mart__brewery AS brewery
+        INNER JOIN beerlist.mart__beers AS beer
+            ON beer.brewery_key = brewery.brewery_key
+        WHERE brewery.brewery IS NOT NULL
+            AND (%(country)s::text IS NULL OR brewery.country = %(country)s::text)
+            AND (%(type)s::text IS NULL OR beer.type = %(type)s::text)
+        ORDER BY brewery.brewery
     """
+    params = {"country": country, "type": type}
 
     with get_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute(query)
+            cursor.execute(query, params)
             return [row["brewery"] for row in cursor.fetchall()]
 
 
