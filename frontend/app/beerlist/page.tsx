@@ -1,5 +1,11 @@
 // app/page.tsx
 
+"use client";
+
+import { useState } from "react";
+import Filters, { emptyFilters, type DashboardFilters } from "./Filters";
+import RatingByCountryChart from "./RatingByCountryChart";
+
 const stats = [
   { label: "Different Beers", value: 128 },
   { label: "Different Breweries", value: 42 },
@@ -7,6 +13,8 @@ const stats = [
 ];
 
 export default function Home() {
+  const [filters, setFilters] = useState<DashboardFilters>(emptyFilters);
+
   return (
     <main className="dashboard">
       <section className="dashboard-header">
@@ -18,9 +26,13 @@ export default function Home() {
           </p>
         </div>
 
-        <button className="primary-button">
-          View data
-        </button>
+        <div className="header-actions">
+          <Filters filters={filters} onChange={setFilters} />
+
+          <button className="primary-button">
+            View data
+          </button>
+        </div>
       </section>
 
       <section className="stats-grid">
@@ -43,9 +55,7 @@ export default function Home() {
             <button className="secondary-button">Explore</button>
           </div>
 
-          <div className="chart-placeholder">
-            Chart goes here
-          </div>
+          <RatingByCountryChart filters={filters} />
         </article>
 
         <article className="panel">

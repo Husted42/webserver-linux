@@ -5,6 +5,7 @@ APScheduler
 
 psycopg[binary]
 pandas
+plotly
 
 gspread
 google-api-python-client

@@ -1,6 +1,23 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from api.analytics import router as analytics_router
+from api.beers import router as beers_router
+from api.breweries import router as breweries_router
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
+
+app.include_router(breweries_router)
+app.include_router(beers_router)
+app.include_router(analytics_router)
 
 
 @app.get("/")
