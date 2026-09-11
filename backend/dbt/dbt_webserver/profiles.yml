@@ -8,5 +8,5 @@ dbt_webserver:
       password: "{{ env_var('POSTGRES_PASSWORD') }}"
       port: 5432
       dbname: "{{ env_var('POSTGRES_DB') }}"
-      schema: public
+      schema: beerlist
       threads: 1

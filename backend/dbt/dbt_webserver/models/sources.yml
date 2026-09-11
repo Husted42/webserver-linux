@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: beerlist
+    schema: beerlist
+    tables:
+      - name: raw_beerlist_google_data

@@ -6,7 +6,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import subprocess
 
 from jobs.google_auth import get_google_credentials
-from jobs.sync_google_sheets import read_sheet
+from jobs.sync_google_sheets import sync_google_sheets
 from jobs.dbt_builder import run_dbt_build
 
 scheduler = BlockingScheduler()
@@ -17,7 +17,7 @@ scheduler = BlockingScheduler()
 # After that, the token.json file can be used on the server as credentials.
 def full_data_pipeline():
     get_google_credentials()
-    read_sheet()
+    sync_google_sheets()
     run_dbt_build()
 
 # Run immediately when the container boots.

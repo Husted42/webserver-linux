@@ -21,11 +21,6 @@ CREDENTIALS_FILE = "credentials/google_credentials.json"
 def get_google_credentials():
     creds = None
 
-    # Print files in credentials directory for debugging
-    print("Files in credentials directory:")
-    for file in os.listdir("credentials"):
-        print(file)
-
     if os.path.exists(TOKEN_FILE):
         creds = Credentials.from_authorized_user_file(
             TOKEN_FILE,

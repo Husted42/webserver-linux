@@ -1,6 +1,5 @@
 {{ config(
     materialized='table',
-    schema='beerlist',
     alias='stg__clean_google_data'
 ) }}
 
@@ -9,6 +8,6 @@ SELECT
     name,
     type,
     alcohol,
-    country,
+    {{ normalize_country('country') }} AS country,
     rating
-FROM raw_beerlist_google_data
+FROM {{ source('beerlist', 'raw_beerlist_google_data') }}
