@@ -6,6 +6,16 @@ def run_dbt_build():
     subprocess.run(
         [
             "dbt",
+            "deps",
+            "--project-dir",
+            "/app/dbt/dbt_webserver",
+        ],
+        check=True,
+    )
+
+    subprocess.run(
+        [
+            "dbt",
             "build",
             "--project-dir",
             "/app/dbt/dbt_webserver",

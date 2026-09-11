@@ -1,5 +1,5 @@
 {{ config(
-    materialized='table',
+    materialized='view',
     alias='stg__clean_google_data'
 ) }}
 

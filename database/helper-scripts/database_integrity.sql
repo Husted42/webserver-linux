@@ -3,7 +3,7 @@
 */
 SELECT table_name
 FROM information_schema.tables
-WHERE table_schema = 'public';
+WHERE table_schema = 'beerlist';
 
 /*
     View data types of all columns in a table
@@ -11,3 +11,4 @@ WHERE table_schema = 'public';
 SELECT column_name, data_type
 FROM information_schema.columns
 WHERE table_name = 'beers';
+
