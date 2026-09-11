@@ -17,7 +17,7 @@ SCOPES = [
 TOKEN_FILE = "credentials/token.json"
 CREDENTIALS_FILE = "credentials/google_credentials.json"
 
-
+  
 def get_google_credentials():
     creds = None
 
