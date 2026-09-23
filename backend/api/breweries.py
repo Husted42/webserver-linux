@@ -6,7 +6,10 @@ from .database import get_connection
 
 router = APIRouter(prefix="/api/breweries", tags=["breweries"])
 
-
+'''
+    This is used for the dropdown showing the list of countries.
+    Filters.tsx
+'''
 @router.get("/countries")
 def list_countries(
     brewery: str | None = Query(default=None),
@@ -29,7 +32,10 @@ def list_countries(
             cursor.execute(query, params)
             return [row["country"] for row in cursor.fetchall()]
 
-
+'''
+    This is used for the dropdown showing the list of brewery names.
+    Filters.tsx
+'''
 @router.get("/names")
 def list_brewery_names(
     country: str | None = Query(default=None),
@@ -51,40 +57,3 @@ def list_brewery_names(
         with connection.cursor() as cursor:
             cursor.execute(query, params)
             return [row["brewery"] for row in cursor.fetchall()]
-
-
-@router.get("/")
-def list_breweries(
-    limit: int = Query(default=100, ge=1, le=500),
-    offset: int = Query(default=0, ge=0),
-):
-    query = """
-        SELECT id, brewery_key, brewery, country, inserted_at, inserted_by
-        FROM beerlist.mart__brewery
-        ORDER BY brewery, country
-        LIMIT %s OFFSET %s
-    """
-
-    with get_connection() as connection:
-        with connection.cursor() as cursor:
-            cursor.execute(query, (limit, offset))
-            return cursor.fetchall()
-
-
-@router.get("/{brewery_key}")
-def get_brewery(brewery_key: UUID):
-    query = """
-        SELECT id, brewery_key, brewery, country, inserted_at, inserted_by
-        FROM beerlist.mart__brewery
-        WHERE brewery_key = %s
-    """
-
-    with get_connection() as connection:
-        with connection.cursor() as cursor:
-            cursor.execute(query, (brewery_key,))
-            brewery = cursor.fetchone()
-
-    if brewery is None:
-        raise HTTPException(status_code=404, detail="Brewery not found")
-
-    return brewery

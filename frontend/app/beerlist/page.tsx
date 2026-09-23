@@ -5,12 +5,7 @@
 import { useState } from "react";
 import Filters, { emptyFilters, type DashboardFilters } from "./Filters";
 import RatingByCountryChart from "./RatingByCountryChart";
-
-const stats = [
-  { label: "Different Beers", value: 128 },
-  { label: "Different Breweries", value: 42 },
-  { label: "Different Countries", value: 18 },
-];
+import StatsCards from "./StatsCards";
 
 export default function Home() {
   const [filters, setFilters] = useState<DashboardFilters>(emptyFilters);
@@ -35,14 +30,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="stats-grid">
-        {stats.map((stat) => (
-          <article className="stat-card" key={stat.label}>
-            <span className="stat-value">{stat.value}</span>
-            <span className="stat-label">{stat.label}</span>
-          </article>
-        ))}
-      </section>
+      <StatsCards filters={filters} />
 
       <section className="content-grid">
         <article className="panel panel-large">
