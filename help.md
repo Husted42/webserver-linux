@@ -20,7 +20,7 @@ Accsess the postgresql database<br>
 ```docker exec -it webserver-postgres psql -U postgres -d {{database_name}}```
 
 Remove containers and rebuild<br>
-```
+```bash
 docker compose down -v
 docker compose up --build
 ```
@@ -30,6 +30,7 @@ docker compose up --build
 ### SSH
 Login to server <br>
 ```ssh -i ssh-server root@91.210.59.86```
+```exit```
 
 
 Move files to server
@@ -48,3 +49,9 @@ Just refresh the token by: (Note we have to delete the old token)
 ```
 python cron/jobs/google_auth.py
 ```
+
+Then copy the new token to the server and restart the cron container: <br>
+```bash
+scp -i ssh-server credentials/token.json root@91.210.59.86:~/github/webserver-linux/backend/credentials/token.json
+```
+
