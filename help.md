@@ -40,3 +40,11 @@ We can open up a new terminal and connect to the postgresql database from there.
 ```
 docker compose exec postgres psql -U postgres -d beerdb
 ```
+
+# Common erros:
+google.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})
+
+Just refresh the token by: (Note we have to delete the old token)
+```
+python cron/jobs/google_auth.py
+```

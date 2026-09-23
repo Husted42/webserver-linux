@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { emptyFilters, type DashboardFilters } from "./Filters";
 
+/*
+    TODO: Add the ability to see different beers when we filter on brewery
+*/
+
 const Plot = dynamic(() => import("./PlotClient"), { ssr: false });
 
 type CountryRating = {
