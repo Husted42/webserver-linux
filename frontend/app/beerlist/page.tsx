@@ -15,9 +15,9 @@ export default function Home() {
       <section className="dashboard-header">
         <div>
           <p className="eyebrow">Beer Analytics</p>
-          <h1>Your beer data, at a glance.</h1>
+          <h1>Husted & Holm's <br/> Beerlist</h1>
           <p className="subtitle">
-            Explore breweries, countries, ratings and tasting trends.
+            From the hardest working livers in the galaxy
           </p>
         </div>
 

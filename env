@@ -1,8 +1,5 @@
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=password
 POSTGRES_DB=beerdb
-
-# On the server, set these to http://<server-ip>:8000 / http://<server-ip>:3000
-# so browser requests reach the right host instead of the client's localhost.
 NEXT_PUBLIC_API_URL=http://localhost:8000
 FRONTEND_ORIGIN=http://localhost:3000
