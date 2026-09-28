@@ -7,7 +7,7 @@ SELECT
     brewery,
     name,
     type,
-    alcohol,
+    alcohol::numeric AS alcohol,
     {{ normalize_country('country') }} AS country,
-    rating
+    rating::numeric AS rating
 FROM {{ source('beerlist', 'raw_beerlist_google_data') }}

@@ -5,6 +5,9 @@
 import { useState } from "react";
 import Filters, { emptyFilters, type DashboardFilters } from "./Filters";
 import RatingByCountryChart from "./RatingByCountryChart";
+import BeerStyleDonutChart from "./BeerStyleDonutChart";
+import AlcoholRatingChart from "./AlcoholRatingChart";
+import TopBreweriesLeaderboard from "./TopBreweriesLeaderboard";
 import StatsCards from "./StatsCards";
 
 export default function Home() {
@@ -15,7 +18,7 @@ export default function Home() {
       <section className="dashboard-header">
         <div>
           <p className="eyebrow">Beer Analytics</p>
-          <h1>Husted & Holm's <br/> Beerlist</h1>
+          <h1>Husted &amp; Holm&apos;s <br/> Beerlist</h1>
           <p className="subtitle">
             From the hardest working livers in the galaxy
           </p>
@@ -54,9 +57,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="chart-placeholder compact">
-            Donut chart
-          </div>
+          <BeerStyleDonutChart filters={filters} />
         </article>
 
         <article className="panel panel-large">
@@ -67,18 +68,17 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="chart-placeholder">
-            Brewery chart
-          </div>
+          <TopBreweriesLeaderboard filters={filters} />
         </article>
 
         <article className="panel highlight-panel">
-          <p className="panel-kicker">Collection</p>
-          <h2>Keep discovering.</h2>
-          <p>
-            Your dashboard can later contain recommendations, recent additions,
-            favourites or other interactive data.
-          </p>
+          <div className="panel-header">
+            <div>
+              <p className="panel-kicker">Rating signals</p>
+              <h2>Alcohol % and rating</h2>
+            </div>
+          </div>
+          <AlcoholRatingChart filters={filters} />
         </article>
       </section>
     </main>

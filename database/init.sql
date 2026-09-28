@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS beerlist.raw_beerlist_google_data (
     brewery TEXT,
     name TEXT,
     type TEXT,
-    alcohol TEXT,
+    alcohol NUMERIC,
     country TEXT,
-    rating TEXT
+    rating NUMERIC
 );
