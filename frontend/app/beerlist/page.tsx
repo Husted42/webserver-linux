@@ -3,12 +3,22 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Filters, { emptyFilters, type DashboardFilters } from "./Filters";
 import RatingByCountryChart from "./RatingByCountryChart";
 import BeerStyleDonutChart from "./BeerStyleDonutChart";
 import AlcoholRatingChart from "./AlcoholRatingChart";
 import TopBreweriesLeaderboard from "./TopBreweriesLeaderboard";
 import StatsCards from "./StatsCards";
+
+function beersHref(filters: DashboardFilters) {
+  const query = new URLSearchParams();
+  if (filters.country) query.set("country", filters.country);
+  if (filters.brewery) query.set("brewery", filters.brewery);
+  if (filters.type) query.set("type", filters.type);
+  const search = query.toString();
+  return search ? `/beers?${search}` : "/beers";
+}
 
 export default function Home() {
   const [filters, setFilters] = useState<DashboardFilters>(emptyFilters);
@@ -27,9 +37,9 @@ export default function Home() {
         <div className="header-actions">
           <Filters filters={filters} onChange={setFilters} />
 
-          <button className="primary-button">
+          <Link className="primary-button" href={beersHref(filters)}>
             View data
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -43,7 +53,9 @@ export default function Home() {
               <h2>Average rating by country</h2>
             </div>
 
-            <button className="secondary-button">Explore</button>
+            <Link className="secondary-button" href={beersHref(filters)}>
+              Explore
+            </Link>
           </div>
 
           <RatingByCountryChart filters={filters} />

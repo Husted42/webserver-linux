@@ -69,45 +69,74 @@ export default function AlcoholRatingChart({ filters = emptyFilters }: Props) {
   }
 
   const sorted = [...data].sort((a, b) => a.bucket_order - b.bucket_order);
+  const topBucket = sorted.reduce((best, bucket) =>
+    bucket.avg_rating > best.avg_rating ? bucket : best,
+  );
+  const ratedBeerCount = sorted.reduce(
+    (total, bucket) => total + bucket.beer_count,
+    0,
+  );
+  const overallAverage =
+    sorted.reduce(
+      (total, bucket) => total + bucket.avg_rating * bucket.beer_count,
+      0,
+    ) / ratedBeerCount;
+  const ratingDifference = topBucket.avg_rating - overallAverage;
+  const differenceLabel = `${ratingDifference >= 0 ? "+" : ""}${ratingDifference.toFixed(2)}`;
 
   return (
-    <div className="alcohol-rating-chart">
-      <Plot
-        data={[
-          {
-            type: "bar",
-            x: sorted.map((bucket) => bucket.alcohol_bucket),
-            y: sorted.map((bucket) => bucket.avg_rating),
-            customdata: sorted.map((bucket) => bucket.beer_count),
-            marker: { color: "#fff1d0" },
-            hovertemplate:
-              "<b>%{x}</b><br>Average rating: %{y:.2f}<br>Beers: %{customdata}<extra></extra>",
-          },
-        ]}
-        layout={{
-          autosize: true,
-          margin: { l: 46, r: 12, t: 12, b: 52 },
-          paper_bgcolor: "transparent",
-          plot_bgcolor: "transparent",
-          font: { family: "Inter, system-ui, sans-serif", color: "#fff1d0", size: 11 },
-          xaxis: {
-            title: { text: "Alcohol %" },
-            color: "#fff1d0",
-            gridcolor: "rgba(255,255,255,0.18)",
-            zerolinecolor: "rgba(255,255,255,0.18)",
-          },
-          yaxis: {
-            title: { text: "Average rating" },
-            color: "#fff1d0",
-            gridcolor: "rgba(255,255,255,0.18)",
-            zerolinecolor: "rgba(255,255,255,0.18)",
-          },
-          showlegend: false,
-        }}
-        config={{ displayModeBar: false, responsive: true }}
-        useResizeHandler
-        style={{ width: "100%", height: "100%" }}
-      />
-    </div>
+    <>
+      <div className="alcohol-rating-chart">
+        <Plot
+          data={[
+            {
+              type: "bar",
+              x: sorted.map((bucket) => bucket.alcohol_bucket),
+              y: sorted.map((bucket) => bucket.avg_rating),
+              customdata: sorted.map((bucket) => bucket.beer_count),
+              marker: { color: "#fff1d0" },
+              hovertemplate:
+                "<b>%{x}</b><br>Average rating: %{y:.2f}<br>Beers: %{customdata}<extra></extra>",
+            },
+          ]}
+          layout={{
+            autosize: true,
+            margin: { l: 46, r: 12, t: 12, b: 52 },
+            paper_bgcolor: "transparent",
+            plot_bgcolor: "transparent",
+            font: { family: "Inter, system-ui, sans-serif", color: "#fff1d0", size: 11 },
+            xaxis: {
+              title: { text: "Alcohol %" },
+              color: "#fff1d0",
+              gridcolor: "rgba(255,255,255,0.18)",
+              zerolinecolor: "rgba(255,255,255,0.18)",
+            },
+            yaxis: {
+              title: { text: "Average rating" },
+              color: "#fff1d0",
+              gridcolor: "rgba(255,255,255,0.18)",
+              zerolinecolor: "rgba(255,255,255,0.18)",
+            },
+            showlegend: false,
+          }}
+          config={{ displayModeBar: false, responsive: true }}
+          useResizeHandler
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
+
+      <div className="alcohol-insight" role="status">
+        <div className="alcohol-insight-range">
+          <span className="alcohol-insight-kicker">Top-rated range</span>
+          <strong>{topBucket.alcohol_bucket}</strong>
+          <span>{topBucket.beer_count.toLocaleString()} rated beers</span>
+        </div>
+        <div className="alcohol-insight-rating">
+          <strong>{topBucket.avg_rating.toFixed(2)}</strong>
+          <span>average rating</span>
+          <small>{differenceLabel} vs. filtered average</small>
+        </div>
+      </div>
+    </>
   );
 }
