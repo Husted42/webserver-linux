@@ -127,11 +127,11 @@ def rating_by_alcohol(
         )
         select
             case
-                when alcohol_percent < 4 then '< 4%'
-                when alcohol_percent < 5 then '4-5%'
-                when alcohol_percent < 6 then '5-6%'
-                when alcohol_percent < 7 then '6-7%'
-                else '7%+'
+                when alcohol_percent < 4 then '< 4%%'
+                when alcohol_percent < 5 then '4-5%%'
+                when alcohol_percent < 6 then '5-6%%'
+                when alcohol_percent < 7 then '6-7%%'
+                else '7%%+'
             end as alcohol_bucket,
             case
                 when alcohol_percent < 4 then 1
